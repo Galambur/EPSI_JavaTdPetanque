@@ -7,11 +7,11 @@ public class Joueur {
     private int numeroEquipe;
     
     // constructeur
-    public Joueur(int id, String nom, String prenom, int numeroEquipe){
+    public Joueur(int id, String nom, String prenom){
         this.id = id;
         this.nom = nom;
         this.prenom = prenom;
-        this.numeroEquipe = numeroEquipe;
+        this.numeroEquipe = 0;
     }
 
     // getters et setters
