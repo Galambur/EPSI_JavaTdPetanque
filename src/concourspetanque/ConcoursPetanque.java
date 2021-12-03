@@ -15,6 +15,7 @@ public class ConcoursPetanque {
         // generation du nombre de joueurs 
         int nombreJoueurs = (int)(Math.random() * range) + min;
         List<Joueur> joueurs = new ArrayList<>();
+        System.out.println("Il y a " + nombreJoueurs + " joueurs dans ce tournoi");
 
         for(int i = 0; i < nombreJoueurs; i++){
             var joueur = new Joueur(i, "nom" + i, "prenom" + i);
@@ -63,14 +64,21 @@ public class ConcoursPetanque {
         else {
             System.out.println("Ce tournoi aura des doublettes et des triplettes");
             Collections.shuffle(listeJoueursRestants);
-            int nombreJoueursRestants = nombreJoueurs - 1;
+            int nombreJoueursRestants = nombreJoueurs;
             int numEquipe = 1;
+            boolean endTriplette = false;
+            if(nombreJoueursRestants % 12 == 0|| nombreJoueursRestants % 10 == 0 || nombreJoueursRestants % 8 == 0 || nombreJoueursRestants % 6 == 0){
+                endTriplette = true;
+            }
+            
+            
+            
             while (nombreJoueursRestants > 0){
-                if((nombreJoueursRestants / 12 == 0|| nombreJoueursRestants / 10 == 0 || nombreJoueursRestants / 8 == 0 || nombreJoueursRestants / 6 == 0)){
+                if((nombreJoueursRestants % 12 == 0|| nombreJoueursRestants % 10 == 0 || nombreJoueursRestants % 8 == 0 || nombreJoueursRestants % 6 == 0) || endTriplette == true){
                     // doublette
                     System.out.println("equipe num " + numEquipe);
-                    var joueur1 = listeJoueursRestants.get(nombreJoueursRestants);
-                    var joueur2 = listeJoueursRestants.get(nombreJoueursRestants - 1);
+                    var joueur1 = listeJoueursRestants.get(nombreJoueursRestants - 1);
+                    var joueur2 = listeJoueursRestants.get(nombreJoueursRestants - 2);
                 
                     List<Joueur> joueursEquipe = new ArrayList<Joueur>();
                     joueursEquipe.add(joueur1);
@@ -88,9 +96,9 @@ public class ConcoursPetanque {
                 } else {
                     // triplette
                     System.out.println("equipe num " + numEquipe);
-                    var joueur1 = listeJoueursRestants.get(nombreJoueursRestants);
-                    var joueur2 = listeJoueursRestants.get(nombreJoueursRestants - 1);
-                    var joueur3 = listeJoueursRestants.get(nombreJoueursRestants - 2);
+                    var joueur1 = listeJoueursRestants.get(nombreJoueursRestants - 1);
+                    var joueur2 = listeJoueursRestants.get(nombreJoueursRestants - 2);
+                    var joueur3 = listeJoueursRestants.get(nombreJoueursRestants - 3);
                 
                     System.out.println(joueur1.getPrenom());
                     System.out.println(joueur2.getPrenom());
@@ -107,6 +115,9 @@ public class ConcoursPetanque {
                     
                     numEquipe++;
                     nombreJoueursRestants = nombreJoueursRestants - 3;
+                    if(nombreJoueursRestants % 12 == 0|| nombreJoueursRestants % 10 == 0 || nombreJoueursRestants % 8 == 0 || nombreJoueursRestants % 6 == 0){
+                        endTriplette = true;
+                    }
                 }
             }
         } 
