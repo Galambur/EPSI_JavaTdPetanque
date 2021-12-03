@@ -14,6 +14,7 @@ public class ConcoursPetanque {
   
         // generation du nombre de joueurs 
         double nombreJoueurs = (int)(Math.random() * range) + min;
+        nombreJoueurs = 13;
         List<Joueur> joueurs = new ArrayList<>();
         System.out.println("Il y a " + nombreJoueurs + " joueurs dans ce tournoi");
 
@@ -30,7 +31,7 @@ public class ConcoursPetanque {
         
         // premiere possibilite
         // 24 20 16 12
-        if(nombreJoueurs / 2 == 12 || nombreJoueurs / 2 == 10 || nombreJoueurs / 2 == 8 || nombreJoueurs / 2 == 6) {
+        if(nombreJoueurs / 2 == 12.0 || nombreJoueurs / 2 == 10.0 || nombreJoueurs / 2 == 8.0 || nombreJoueurs / 2 == 6.0) {
             System.out.println("Ce tournoi n'aura que des doublettes");
             nombreEquipe = nombreJoueurs / 2;
             // on mélange la liste des joueurs
@@ -58,7 +59,72 @@ public class ConcoursPetanque {
                 tournoi.addEquipe(equipe);
                 
             }
-        } 
+        } else {
+            var nombreEquipes = 0;
+            // on crée une triplette si on a un nombre impaire
+            if(nombreJoueurs % 2 != 0) {
+                nombreEquipes++;
+                System.out.println("Nombre impair");
+                System.out.println("equipe num " + nombreEquipes);
+                var joueur1 = listeJoueursRestants.get(listeJoueursRestants.size() - 1);
+                listeJoueursRestants.remove(joueur1);
+                var joueur2 = listeJoueursRestants.get(listeJoueursRestants.size() - 1);
+                listeJoueursRestants.remove(joueur2);
+                var joueur3 = listeJoueursRestants.get(listeJoueursRestants.size() - 1);
+                listeJoueursRestants.remove(joueur3);
+
+                System.out.println(joueur1.getPrenom());
+                System.out.println(joueur2.getPrenom());
+                System.out.println(joueur3.getPrenom());
+
+
+                List<Joueur> joueursEquipe = new ArrayList<Joueur>();
+                joueursEquipe.add(joueur1);
+                joueursEquipe.add(joueur2);
+                joueursEquipe.add(joueur3);
+
+                var equipe = new Equipe(nombreEquipes, joueursEquipe, 0);
+                tournoi.addEquipe(equipe);
+            } 
+            
+            
+            var nombreJoueursRestants = listeJoueursRestants.size();
+            // on crée des doublettes jusqu'à ce qu'on ne puisse plus
+            for(var i = 1; i <= listeJoueursRestants.size(); i++){
+                nombreEquipes++;
+                System.out.println("equipe num " + nombreEquipes);
+                var joueur1 = listeJoueursRestants.get(nombreJoueursRestants - 1);
+                var joueur2 = listeJoueursRestants.get(nombreJoueursRestants - 2);
+
+                List<Joueur> joueursEquipe = new ArrayList<Joueur>();
+                joueursEquipe.add(joueur1);
+                joueursEquipe.add(joueur2);
+
+                var equipe = new Equipe(nombreEquipes, joueursEquipe, 0);
+                tournoi.addEquipe(equipe);
+
+                System.out.println(joueur1.getPrenom());
+                System.out.println(joueur2.getPrenom());
+
+                nombreJoueursRestants = nombreJoueursRestants - 2;
+            }
+            
+            // si on a créé trop d'équipe, on en enleve assez pour 
+            if(nombreEquipes != 12 && nombreEquipes != 10 && nombreEquipes != 8 && nombreEquipes != 6){
+                var nbAEnlever = nombreEquipes - 12;
+                tournoi.removeEquipes(nbAEnlever);
+                
+            }
+        }
+        
+        
+        
+        
+        
+        
+        
+        
+        /*
         // deuxieme possibilite 
         // tous les autres nombres
         else {
@@ -70,8 +136,6 @@ public class ConcoursPetanque {
             if(nombreJoueursRestants % 12 == 0|| nombreJoueursRestants % 10 == 0 || nombreJoueursRestants % 8 == 0 || nombreJoueursRestants % 6 == 0){
                 endTriplette = true;
             }
-            
-            
             
             while (nombreJoueursRestants > 0){
                 if((nombreJoueursRestants % 12 == 0|| nombreJoueursRestants % 10 == 0 || nombreJoueursRestants % 8 == 0 || nombreJoueursRestants % 6 == 0) || endTriplette == true){
@@ -122,62 +186,6 @@ public class ConcoursPetanque {
             }
         } 
         
-        
-        
-        
-        
-        
-        
-        
-        /*var nombreEquipe = (double)nombreJoueurs / 2;
-        System.out.println("nombreEquipe" + nombreEquipe);
-        if(nombreEquipe == 12 || nombreEquipe == 10 || nombreEquipe == 8 || nombreEquipe == 6) {
-            System.out.println("que des doublettes");
-            // todo : creation des doublettes
-        }
-        // si le nombre de personnes est impair
-        if(nombreJoueurs % 2 != 0){
-            nombreJoueurs = nombreJoueurs - 3;
-            System.out.println("creation d'une triplette");
-            // todo : creation d'une triplette
-        }
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        // generation d'une equipe
-        while (nombreJoueurs > 0){
-            if(nombreJoueurs % 2 == 0){
-                // todo : creation d'une equipe de 2
-                nombreJoueurs = nombreJoueurs - 2;
-            } else {
-                // todo : creation d'une equipe de 3
-                nombreJoueurs = nombreJoueurs - 3;
-            }
-        }
-        
-        
-        
-        
-        
-        
-        
-        
-        // generation des equipes
-        double nombreEquipe = 0;
-        nombreEquipe = (double)nombreJoueurs / 2;
-        System.out.println("nombreEquipe"+nombreEquipe);
-        if(nombreEquipe == 12 || nombreEquipe == 10 || nombreEquipe == 8 || nombreEquipe == 6) {
-            System.out.println("que des doublettes");
-        } else {
-
-        }*/
+        */
     }
-    
 }

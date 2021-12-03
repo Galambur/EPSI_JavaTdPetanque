@@ -22,4 +22,10 @@ public class Tournoi {
     public void addEquipe(Equipe equipe){
         this.equipes.add(equipe);
     }
+    
+    public void removeEquipes(int nbEquipeASupprimer){
+        for(var i = 1; i <= nbEquipeASupprimer; i++){
+            this.equipes.remove(this.equipes.size() - 1);
+        }
+    }
 }
