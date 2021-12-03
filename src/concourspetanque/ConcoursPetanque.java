@@ -2,13 +2,11 @@ package concourspetanque;
 
 import java.lang.Math;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class ConcoursPetanque {
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String[] args) {
         int max = 36;
         int min = 12;
@@ -17,30 +15,92 @@ public class ConcoursPetanque {
         // generation du nombre de joueurs 
         int nombreJoueurs = (int)(Math.random() * range) + min;
         List<Joueur> joueurs = new ArrayList<>();
+        nombreJoueurs = 24;
+
         for(int i = 0; i < nombreJoueurs; i++){
             var joueur = new Joueur(i, "nom" + i, "prenom" + i);
             joueurs.add(joueur);
         }
         
+        var tournoi = new Tournoi(joueurs);
         
         
         double nombreEquipe = 0;
-        nombreEquipe = (double)nombreJoueurs / 2;
-        System.out.println("nombreEquipe : " + nombreEquipe + " nombre joueurs : " + nombreJoueurs);
         // premiere possibilite
-        if(nombreEquipe == 12 || nombreEquipe == 10 || nombreEquipe == 8 || nombreEquipe == 6) {
-            System.out.println("que des doublettes");
-            int nombreJoueursTempo = nombreJoueurs;
+        // 24 20 16 12
+        var listeJoueursRestants = tournoi.joueurs;
+        
+        if(nombreJoueurs / 2 == 12 || nombreJoueurs / 2 == 10 || nombreJoueurs / 2 == 8 || nombreJoueurs / 2 == 6) {
+            System.out.println("Ce tournoi n'aura que des doublettes");
+            nombreEquipe = nombreJoueurs / 2;
+            // on mélange la liste des joueurs
+            Collections.shuffle(listeJoueursRestants);
+            var lastIndex = listeJoueursRestants.size() - 1;
+            
             for (int i = 1; i <= nombreEquipe; i++){
-                System.out.println("creation equipe num " + i);
-                nombreJoueursTempo = nombreJoueursTempo - 2 ;
-                System.out.println("nombreJoueursTempo " + nombreJoueursTempo);
+                // choix des deux joueurs
+                System.out.println("equipe num " + i);
+                var joueur1 = listeJoueursRestants.get(lastIndex);
+                joueur1.setNumeroEquipe(i);
+                var joueur2 = listeJoueursRestants.get(lastIndex - 1);
+                joueur2.setNumeroEquipe(i);
+
+                lastIndex = lastIndex - 2;
+                
+                System.out.println(joueur1.getPrenom());
+                System.out.println(joueur2.getPrenom());
+                
+                List<Joueur> joueursEquipe = new ArrayList<Joueur>();
+                joueursEquipe.add(joueur1);
+                joueursEquipe.add(joueur2);
+                
+                var equipe = new Equipe(i, joueursEquipe, 0);
+                tournoi.addEquipe(equipe);
+                
             }
         } 
-        // deuxieme possibilite
-        else if (nombreEquipe % 2 == 0){
-            
-        }
+        // deuxieme possibilite 
+        // tous les autres nombres
+        else {
+            Collections.shuffle(listeJoueursRestants);
+            int nombreJoueursRestants = nombreJoueurs;
+            int numEquipe = 1;
+            while (nombreJoueursRestants > 0){
+                if((nombreJoueursRestants / 12 == 0|| nombreJoueursRestants / 10 == 0 || nombreJoueursRestants / 8 == 0 || nombreJoueursRestants / 6 == 0)){
+                    // doublette
+                    var joueur1 = listeJoueursRestants.get(nombreJoueursRestants);
+                    var joueur2 = listeJoueursRestants.get(nombreJoueursRestants - 1);
+                
+                    List<Joueur> joueursEquipe = new ArrayList<Joueur>();
+                    joueursEquipe.add(joueur1);
+                    joueursEquipe.add(joueur2);
+                    
+                    var equipe = new Equipe(numEquipe, joueursEquipe, 0);
+                    tournoi.addEquipe(equipe);
+                    
+                    nombreJoueursRestants = nombreJoueursRestants - 2;
+                    numEquipe++;
+                    
+                } else {
+                    // triplette
+                    var joueur1 = listeJoueursRestants.get(nombreJoueursRestants);
+                    var joueur2 = listeJoueursRestants.get(nombreJoueursRestants - 1);
+                    var joueur3 = listeJoueursRestants.get(nombreJoueursRestants - 2);
+
+                
+                    List<Joueur> joueursEquipe = new ArrayList<Joueur>();
+                    joueursEquipe.add(joueur1);
+                    joueursEquipe.add(joueur2);
+                    joueursEquipe.add(joueur3);
+                    
+                    var equipe = new Equipe(numEquipe, joueursEquipe, 0);
+                    tournoi.addEquipe(equipe);
+                    
+                    numEquipe++;
+                    nombreJoueursRestants = nombreJoueursRestants - 3;
+                }
+            }
+        } 
         
         
         

@@ -1,5 +1,6 @@
 package concourspetanque;
 
+
 public class Joueur {
     private int id;
     private String nom;
@@ -23,6 +24,10 @@ public class Joueur {
         this.prenom = prenom;
     }
 
+    public void setNumeroEquipe(int num) {
+        this.numeroEquipe = num;
+    }
+
     public String getNom() {
         return nom;
     }
@@ -39,5 +44,4 @@ public class Joueur {
     public int getNumeroEquipe() {
         return this.numeroEquipe;
     }
-
 }

@@ -1,11 +1,12 @@
 package concourspetanque;
 
 import java.util.List;
+import java.util.Random;
 
 public class Equipe {
-    private int id;
-    private List<Joueur> joueurs;
-    private int nombrePartiesGagnees;
+    public int id;
+    public List<Joueur> joueurs;
+    public int nombrePartiesGagnees;
     
     public Equipe(int id, List<Joueur> joueurs, int nombrePartiesGagnees){
         this.id = id;
