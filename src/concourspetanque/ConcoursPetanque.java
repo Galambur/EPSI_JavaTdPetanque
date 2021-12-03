@@ -13,7 +13,7 @@ public class ConcoursPetanque {
         int range = max - min + 1;
   
         // generation du nombre de joueurs 
-        int nombreJoueurs = (int)(Math.random() * range) + min;
+        double nombreJoueurs = (int)(Math.random() * range) + min;
         List<Joueur> joueurs = new ArrayList<>();
         System.out.println("Il y a " + nombreJoueurs + " joueurs dans ce tournoi");
 
