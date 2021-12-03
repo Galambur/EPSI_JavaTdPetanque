@@ -1,5 +1,6 @@
 package concourspetanque;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -9,6 +10,8 @@ public class Tournoi {
     public List<Joueur> joueurs;
     
     public Tournoi(List<Joueur> joueurs){
+        this.equipes = new ArrayList<Equipe>();
+        this.matches = new ArrayList<Match>();
         this.joueurs = joueurs;
     }
     
