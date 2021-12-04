@@ -40,19 +40,15 @@ public class ConcoursPetanque {
             for (int i = 1; i <= nombreEquipe; i++){
                 // choix des deux joueurs
                 var joueur1 = listeJoueursRestants.get(lastIndex);
-                joueur1.setNumeroEquipe(i);
                 var joueur2 = listeJoueursRestants.get(lastIndex - 1);
-                joueur2.setNumeroEquipe(i);
-
-                lastIndex = lastIndex - 2;
                 
-                List<Joueur> joueursEquipe = new ArrayList<Joueur>();
-                joueursEquipe.add(joueur1);
-                joueursEquipe.add(joueur2);
+                var equipe = new Equipe(i, new ArrayList<Joueur>(), 0);
+                equipe.ajouterJoueur(joueur1);
+                equipe.ajouterJoueur(joueur2);
                 
-                var equipe = new Equipe(i, joueursEquipe, 0);
                 tournoi.addEquipe(equipe);
                 
+                lastIndex = lastIndex - 2;                
             }
         } else {
             var nombreEquipes = 0;
@@ -67,13 +63,11 @@ public class ConcoursPetanque {
                 var joueur3 = listeJoueursRestants.get(listeJoueursRestants.size() - 1);
                 listeJoueursRestants.remove(joueur3);
 
-
-                List<Joueur> joueursEquipe = new ArrayList<Joueur>();
-                joueursEquipe.add(joueur1);
-                joueursEquipe.add(joueur2);
-                joueursEquipe.add(joueur3);
-
-                var equipe = new Equipe(nombreEquipes, joueursEquipe, 0);
+                var equipe = new Equipe(nombreEquipes, new ArrayList<Joueur>(), 0);
+                equipe.ajouterJoueur(joueur1);
+                equipe.ajouterJoueur(joueur2);
+                equipe.ajouterJoueur(joueur3);
+                
                 tournoi.addEquipe(equipe);
             } 
             
@@ -85,11 +79,10 @@ public class ConcoursPetanque {
                 var joueur1 = listeJoueursRestants.get(nombreJoueursRestants - 1);
                 var joueur2 = listeJoueursRestants.get(nombreJoueursRestants - 2);
 
-                List<Joueur> joueursEquipe = new ArrayList<Joueur>();
-                joueursEquipe.add(joueur1);
-                joueursEquipe.add(joueur2);
-
-                var equipe = new Equipe(nombreEquipes, joueursEquipe, 0);
+                var equipe = new Equipe(nombreEquipes, new ArrayList<Joueur>(), 0);
+                equipe.ajouterJoueur(joueur1);
+                equipe.ajouterJoueur(joueur2);
+                
                 tournoi.addEquipe(equipe);
 
                 nombreJoueursRestants = nombreJoueursRestants - 2;
@@ -107,8 +100,6 @@ public class ConcoursPetanque {
                 var idLast = doublette3.id;
                 tournoi.removeTroisEquipes();
                 
-                
-                
                 // recuperation des joueurs
                 var joueur1 = doublette1.joueurs.get(0);
                 var joueur2 = doublette1.joueurs.get(1);
@@ -118,18 +109,16 @@ public class ConcoursPetanque {
                 var joueur6 = doublette3.joueurs.get(1);
                 
                 // creation de la premier equipe
-                List<Joueur> triplette1 = new ArrayList<Joueur>();
-                triplette1.add(joueur1);
-                triplette1.add(joueur2);
-                triplette1.add(joueur3);
-                Equipe equipe1 = new Equipe(idSecondToLast, triplette1, 0);
+                Equipe equipe1 = new Equipe(idSecondToLast, new ArrayList<Joueur>(), 0);
+                equipe1.ajouterJoueur(joueur1);
+                equipe1.ajouterJoueur(joueur2);
+                equipe1.ajouterJoueur(joueur3);
                 
                 // creation de la deuxieme equipe
-                List<Joueur> triplette2 = new ArrayList<Joueur>();
-                triplette2.add(joueur4);
-                triplette2.add(joueur5);
-                triplette2.add(joueur6);
-                Equipe equipe2 = new Equipe(idLast, triplette2, 0);
+                Equipe equipe2 = new Equipe(idLast, new ArrayList<Joueur>(), 0);
+                equipe2.ajouterJoueur(joueur4);
+                equipe2.ajouterJoueur(joueur5);
+                equipe2.ajouterJoueur(joueur6);
                 
                 
                 tournoi.addEquipe(equipe1);

@@ -44,4 +44,8 @@ public class Joueur {
     public int getNumeroEquipe() {
         return this.numeroEquipe;
     }
+    
+    public String afficheToi(){
+        return this.getPrenom() + " equipe " + this.getNumeroEquipe();
+    }
 }

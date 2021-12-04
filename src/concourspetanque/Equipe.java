@@ -22,7 +22,7 @@ public class Equipe {
     public String afficherJoueurs(){
         var str = "Equipe num " + this.id + " :";
         for(var i = 0; i < this.joueurs.size(); i++){
-            str = str + " " + this.joueurs.get(i).getPrenom();
+            str = str + " | " + this.joueurs.get(i).afficheToi();
         }
         return str;
     }
