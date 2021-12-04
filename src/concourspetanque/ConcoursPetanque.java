@@ -8,6 +8,16 @@ import java.util.List;
 public class ConcoursPetanque {
 
     public static void main(String[] args) {
+        
+        
+        var tournoi = creationEquipes();
+        
+        
+        tournoi.afficherEquipes();
+    }
+    
+    
+    public static Tournoi creationEquipes(){
         int max = 36;
         int min = 12;
         int range = max - min + 1;
@@ -23,8 +33,6 @@ public class ConcoursPetanque {
         }
         
         var tournoi = new Tournoi(joueurs);
-        
-        
         double nombreEquipe = 0;
         var listeJoueursRestants = tournoi.joueurs;
         
@@ -134,7 +142,6 @@ public class ConcoursPetanque {
                 }
             }
         }
-        
-        tournoi.afficherEquipes();
+        return tournoi;
     }
 }
