@@ -13,4 +13,17 @@ public class Equipe {
         this.joueurs = joueurs;
         this.nombrePartiesGagnees = nombrePartiesGagnees;
     }
+    
+    public void ajouterJoueur(Joueur j){
+        this.joueurs.add(j);
+        j.setNumeroEquipe(this.id);
+    }
+    
+    public String afficherJoueurs(){
+        var str = "Equipe num " + this.id + " :";
+        for(var i = 0; i < this.joueurs.size(); i++){
+            str = str + " " + this.joueurs.get(i).getPrenom();
+        }
+        return str;
+    }
 }

@@ -23,9 +23,15 @@ public class Tournoi {
         this.equipes.add(equipe);
     }
     
-    public void removeEquipes(int nbEquipeASupprimer){
-        for(var i = 1; i <= nbEquipeASupprimer; i++){
-            this.equipes.remove(this.equipes.size() - 1);
+    public void removeTroisEquipes(){
+        this.equipes.remove(this.equipes.size() - 1);
+        this.equipes.remove(this.equipes.size() - 1);
+        this.equipes.remove(this.equipes.size() - 1);
+    }
+    
+    public void afficherEquipes(){
+        for(var i = 0; i < this.equipes.size(); i++){
+            System.out.println(this.equipes.get(i).afficherJoueurs());
         }
     }
 }
