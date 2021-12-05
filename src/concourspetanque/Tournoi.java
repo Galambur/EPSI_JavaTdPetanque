@@ -46,16 +46,41 @@ public class Tournoi {
         }));
         Collections.sort(equipes, (new Comparator<Equipe>() {
             public int compare(Equipe i1, Equipe i2) {
-                return i1.nombrePartiesGagnees - i2.nombrePartiesGagnees;
+                return i2.nombrePartiesGagnees - i1.nombrePartiesGagnees;
             }
         }));
     }
     
-    public boolean compareTo(Equipe e1, Equipe e2){
-        if(!(e1.getnombrePartiesGagnees() == (e2.getnombrePartiesGagnees()))){
-          return e1.getnombrePartiesGagnees() > e2.getnombrePartiesGagnees();
-       }else{
-          return e1.getscoreFinal() > e2.getscoreFinal();
+    public Equipe findEquipeAdverse(Equipe equipe, int numManche){
+        Equipe equipeAdverse = null;
+        for(var j = 0; j < equipes.size(); j++){
+            if(equipes.get(j).getId() != equipe.getId() 
+                    && hasAlreadyPlayed(equipes.get(j), equipe) == false 
+                    && isAlreadyPlaying(equipes.get(j), numManche) == false){
+                equipeAdverse = equipes.get(j);
+            }
         }
+        return equipeAdverse;
+    }
+    
+    public boolean isAlreadyPlaying(Equipe equipeCherchee, int numManche){
+        for(var i = 0; i < matches.size(); i++){
+            if(matches.get(i).numManche == numManche && (equipeCherchee.getId() == matches.get(i).equipe1.getId() || equipeCherchee.getId() == matches.get(i).equipe2.getId())) {
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    public boolean hasAlreadyPlayed(Equipe e1, Equipe e2){
+        for(var i = 0; i < matches.size(); i++){
+            if(matches.get(i).equipe1.getId() == e1.getId() && matches.get(i).equipe2.getId() == e2.getId()){
+                return true;
+            }
+            if(matches.get(i).equipe1.getId() == e2.getId() && matches.get(i).equipe2.getId() == e1.getId()){
+                return true;
+            }
+        }
+        return false;
     }
 }

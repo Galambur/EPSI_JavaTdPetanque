@@ -9,10 +9,14 @@ public class Equipe {
     public int scoreFinal;
     public int nombrePartiesGagnees;
     
-    public Equipe(int id, List<Joueur> joueurs, int nombrePartiesGagnees){
+    public Equipe(int id, List<Joueur> joueurs){
         this.id = id;
         this.joueurs = joueurs;
-        this.nombrePartiesGagnees = nombrePartiesGagnees;
+        this.nombrePartiesGagnees = 0;
+    }
+    
+    public int getId(){
+        return id;
     }
     
     public int getscoreFinal(){
