@@ -16,19 +16,20 @@ public class ConcoursPetanque {
         // deroulement du tournoi
         deroulementTournoi(tournoi);
         
-        
-        
+        tournoi.afficherEquipes();
     }
     
     
     public static void deroulementTournoi(Tournoi tournoi){
-        for (var j = 0; j < 4; j++){
-            Collections.shuffle(tournoi.equipes);
+        for (var j = 1; j <= 4; j++){
+            System.out.println("manche numero " + j);
             var numMatch = 0;
             // une manche pour toutes les equipes
-            for(var i = 0; i < tournoi.equipes.size(); i = i +2){
+            for(var i = 0; i < tournoi.equipes.size(); i = i + 2){
+                
                 numMatch++;
                 var match = new Match(numMatch, tournoi.equipes.get(i), tournoi.equipes.get(i+1), 0, 0);
+                tournoi.matches.add(match);
                 
                 // quelle equipe commence la partie
                 Random rand = new Random();
@@ -56,10 +57,10 @@ public class ConcoursPetanque {
                             if(match.scoreEquipe2 > 11)
                                 match.scoreEquipe2 = 11;
                         }
-                        
+                        System.out.println("score equipe " + match.equipe1.id + " : " + match.scoreEquipe1 + " score equipe " + match.equipe2.id + " : " + match.scoreEquipe2);
+                                                
                         // on retire le booleen
                         equipe1Commence = rand.nextBoolean();
-                        System.out.println("score equipe " + match.equipe1.id + " : " + match.scoreEquipe1 + " | score equipe " + match.equipe2.id + " : " + match.scoreEquipe2);
                     } else {
                         // on incremente le score de l'equipe 1
                         // une equipe peut gagner maximum 6 points et minimum 0
@@ -81,12 +82,14 @@ public class ConcoursPetanque {
                                 match.scoreEquipe1 = 11;
                         }
                         
+                        System.out.println("score equipe " + match.equipe1.id + " : " + match.scoreEquipe1 + " score equipe " + match.equipe2.id + " : " + match.scoreEquipe2);
+
                         // on retire le booleen
                         equipe1Commence = rand.nextBoolean();
-                        System.out.println("score equipe " + match.equipe1.id + " : " + match.scoreEquipe1 + " score equipe " + match.equipe2.id + " : " + match.scoreEquipe2);
                     } 
                 } while(match.scoreEquipe1 < 11 && match.scoreEquipe2 < 11);
-                System.out.println("");
+                match.equipe1.scoreFinal = match.equipe1.scoreFinal + match.scoreEquipe1;
+                match.equipe2.scoreFinal = match.equipe2.scoreFinal + match.scoreEquipe2;
             }
         }
     }

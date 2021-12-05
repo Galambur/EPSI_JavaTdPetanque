@@ -6,6 +6,7 @@ import java.util.Random;
 public class Equipe {
     public int id;
     public List<Joueur> joueurs;
+    public int scoreFinal;
     public int nombrePartiesGagnees;
     
     public Equipe(int id, List<Joueur> joueurs, int nombrePartiesGagnees){
@@ -22,7 +23,7 @@ public class Equipe {
     public String afficherJoueurs(){
         var str = "Equipe num " + this.id + " :";
         for(var i = 0; i < this.joueurs.size(); i++){
-            str = str + " | " + this.joueurs.get(i).afficheToi();
+            str = str + " score : " + Integer.toString(this.scoreFinal) + " | " + this.joueurs.get(i).afficheToi();
         }
         return str;
     }
