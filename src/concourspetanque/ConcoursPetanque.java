@@ -13,9 +13,15 @@ public class ConcoursPetanque {
         var tournoi = creationEquipes();
         tournoi.afficherEquipes();
         
-        
-        
         // deroulement du tournoi
+        deroulementTournoi(tournoi);
+        
+        
+        
+    }
+    
+    
+    public static void deroulementTournoi(Tournoi tournoi){
         for (var j = 0; j < 4; j++){
             Collections.shuffle(tournoi.equipes);
             var numMatch = 0;
@@ -84,7 +90,6 @@ public class ConcoursPetanque {
             }
         }
     }
-    
     
     public static Tournoi creationEquipes(){
         int max = 36;
