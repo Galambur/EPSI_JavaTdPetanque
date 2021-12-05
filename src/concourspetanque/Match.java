@@ -14,4 +14,14 @@ public class Match {
         this.scoreEquipe1 = score1;
         this.scoreEquipe2 = score2;
     }
+    
+    public void ajouterNbPartiesGagnees(){
+        if(scoreEquipe1 > scoreEquipe2) {
+            equipe1.scoreFinal = equipe1.scoreFinal + scoreEquipe1 - scoreEquipe2;
+            equipe1.nombrePartiesGagnees++; 
+        } else {
+            equipe2.scoreFinal = equipe2.scoreFinal + scoreEquipe2 - scoreEquipe1;
+            equipe2.nombrePartiesGagnees++;
+        }
+    }
 }

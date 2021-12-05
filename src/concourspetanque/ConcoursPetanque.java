@@ -11,18 +11,18 @@ public class ConcoursPetanque {
     public static void main(String[] args) {
         
         var tournoi = creationEquipes();
-        tournoi.afficherEquipes();
+        //tournoi.afficherEquipes();
         
         // deroulement du tournoi
         deroulementTournoi(tournoi);
         
+        tournoi.afficherClassement();
         tournoi.afficherEquipes();
     }
     
     
     public static void deroulementTournoi(Tournoi tournoi){
         for (var j = 1; j <= 4; j++){
-            System.out.println("manche numero " + j);
             var numMatch = 0;
             // une manche pour toutes les equipes
             for(var i = 0; i < tournoi.equipes.size(); i = i + 2){
@@ -57,7 +57,6 @@ public class ConcoursPetanque {
                             if(match.scoreEquipe2 > 11)
                                 match.scoreEquipe2 = 11;
                         }
-                        System.out.println("score equipe " + match.equipe1.id + " : " + match.scoreEquipe1 + " score equipe " + match.equipe2.id + " : " + match.scoreEquipe2);
                                                 
                         // on retire le booleen
                         equipe1Commence = rand.nextBoolean();
@@ -82,14 +81,12 @@ public class ConcoursPetanque {
                                 match.scoreEquipe1 = 11;
                         }
                         
-                        System.out.println("score equipe " + match.equipe1.id + " : " + match.scoreEquipe1 + " score equipe " + match.equipe2.id + " : " + match.scoreEquipe2);
-
                         // on retire le booleen
                         equipe1Commence = rand.nextBoolean();
                     } 
                 } while(match.scoreEquipe1 < 11 && match.scoreEquipe2 < 11);
-                match.equipe1.scoreFinal = match.equipe1.scoreFinal + match.scoreEquipe1;
-                match.equipe2.scoreFinal = match.equipe2.scoreFinal + match.scoreEquipe2;
+                // todo : calculer le moins
+                match.ajouterNbPartiesGagnees();
             }
         }
     }

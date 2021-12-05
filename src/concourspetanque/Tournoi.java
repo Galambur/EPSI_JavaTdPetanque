@@ -1,6 +1,8 @@
 package concourspetanque;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Random;
 
@@ -32,6 +34,28 @@ public class Tournoi {
     public void afficherEquipes(){
         for(var i = 0; i < this.equipes.size(); i++){
             System.out.println(this.equipes.get(i).afficherJoueurs());
+        }
+    }
+    
+    public void afficherClassement(){
+        // organiser la liste
+        Collections.sort(equipes, (new Comparator<Equipe>() {
+            public int compare(Equipe i1, Equipe i2) {
+                return i1.scoreFinal - i2.scoreFinal;
+            }
+        }));
+        Collections.sort(equipes, (new Comparator<Equipe>() {
+            public int compare(Equipe i1, Equipe i2) {
+                return i1.nombrePartiesGagnees - i2.nombrePartiesGagnees;
+            }
+        }));
+    }
+    
+    public boolean compareTo(Equipe e1, Equipe e2){
+        if(!(e1.getnombrePartiesGagnees() == (e2.getnombrePartiesGagnees()))){
+          return e1.getnombrePartiesGagnees() > e2.getnombrePartiesGagnees();
+       }else{
+          return e1.getscoreFinal() > e2.getscoreFinal();
         }
     }
 }
