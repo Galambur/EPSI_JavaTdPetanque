@@ -41,7 +41,7 @@ public class Tournoi {
         // organiser la liste
         Collections.sort(equipes, (new Comparator<Equipe>() {
             public int compare(Equipe i1, Equipe i2) {
-                return i1.scoreFinal - i2.scoreFinal;
+                return i2.scoreFinal - i1.scoreFinal;
             }
         }));
         Collections.sort(equipes, (new Comparator<Equipe>() {
