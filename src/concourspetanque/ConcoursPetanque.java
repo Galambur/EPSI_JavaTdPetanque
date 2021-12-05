@@ -4,16 +4,85 @@ import java.lang.Math;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Random;
 
 public class ConcoursPetanque {
 
     public static void main(String[] args) {
         
-        
         var tournoi = creationEquipes();
-        
-        
         tournoi.afficherEquipes();
+        
+        
+        
+        // deroulement du tournoi
+        for (var j = 0; j < 4; j++){
+            Collections.shuffle(tournoi.equipes);
+            var numMatch = 0;
+            // une manche pour toutes les equipes
+            for(var i = 0; i < tournoi.equipes.size(); i = i +2){
+                numMatch++;
+                var match = new Match(numMatch, tournoi.equipes.get(i), tournoi.equipes.get(i+1), 0, 0);
+                
+                // quelle equipe commence la partie
+                Random rand = new Random();
+                var equipe1Commence = rand.nextBoolean();
+                
+                do {
+                    
+                    if(equipe1Commence){
+                        // on incremente le score de l'equipe 1
+                        // une equipe peut gagner maximum 6 points et minimum 0
+                        int max = 6;
+                        int min = 0;
+                        int range = max - min + 1;
+
+                        int score1 = (int)(Math.random() * range) + min;
+                        match.scoreEquipe1 = match.scoreEquipe1 + score1;
+                        
+                        if(match.scoreEquipe1 > 11)
+                            match.scoreEquipe1 = 11;
+                        
+                        if(match.scoreEquipe1 < 11){
+                            int score2 = (int)(Math.random() * range) + min;
+                            match.scoreEquipe2 = match.scoreEquipe2 + score2;
+                            
+                            if(match.scoreEquipe2 > 11)
+                                match.scoreEquipe2 = 11;
+                        }
+                        
+                        // on retire le booleen
+                        equipe1Commence = rand.nextBoolean();
+                        System.out.println("score equipe " + match.equipe1.id + " : " + match.scoreEquipe1 + " | score equipe " + match.equipe2.id + " : " + match.scoreEquipe2);
+                    } else {
+                        // on incremente le score de l'equipe 1
+                        // une equipe peut gagner maximum 6 points et minimum 0
+                        int max = 6;
+                        int min = 0;
+                        int range = max - min + 1;
+
+                        int score2 = (int)(Math.random() * range) + min;
+                        match.scoreEquipe2 = match.scoreEquipe2 + score2;
+                        
+                        if(match.scoreEquipe2 > 11)
+                            match.scoreEquipe2 = 11;
+                        
+                        if(match.scoreEquipe2 < 11){
+                            int score1 = (int)(Math.random() * range) + min;
+                            match.scoreEquipe1 = match.scoreEquipe1 + score1;
+                            
+                            if(match.scoreEquipe1 > 11)
+                                match.scoreEquipe1 = 11;
+                        }
+                        
+                        // on retire le booleen
+                        equipe1Commence = rand.nextBoolean();
+                        System.out.println("score equipe " + match.equipe1.id + " : " + match.scoreEquipe1 + " score equipe " + match.equipe2.id + " : " + match.scoreEquipe2);
+                    } 
+                } while(match.scoreEquipe1 < 11 && match.scoreEquipe2 < 11);
+                System.out.println("");
+            }
+        }
     }
     
     
