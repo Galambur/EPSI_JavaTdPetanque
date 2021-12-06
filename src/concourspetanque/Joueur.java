@@ -39,13 +39,8 @@ public class Joueur {
     public int getId() {
         return this.id;
     }
-
-
-    public int getNumeroEquipe() {
-        return this.numeroEquipe;
-    }
     
     public String afficheToi(){
-        return this.getPrenom() + " equipe " + this.getNumeroEquipe();
+        return this.getPrenom();
     }
 }

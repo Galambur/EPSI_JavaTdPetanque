@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Random;
 
 public class Tournoi {
     public List<Equipe> equipes;
@@ -37,7 +36,25 @@ public class Tournoi {
         }
     }
     
-    public void faireClassement(){
+    public void rangerEquipesOrdreId(){
+        Collections.sort(equipes, (new Comparator<Equipe>() {
+            public int compare(Equipe i1, Equipe i2) {
+                return i1.id - i2.id;
+            }
+        }));
+    }
+    
+    public void afficherClassement(){
+        faireClassement();
+        for (var i = 0; i < equipes.size(); i++){
+            System.out.println("Rang " + (i+1) + " Equipe " + equipes.get(i).getId() + " --> nombre parties gagnées : " + equipes.get(i).nombrePartiesGagnees + " score total : " + equipes.get(i).scoreFinal);
+            for(var j = 0; j < equipes.get(i).joueurs.size(); j++){
+                System.out.println("\t" + equipes.get(i).joueurs.get(j).getNom());
+            }
+        }
+    }
+    
+    private void faireClassement(){
         // organiser la liste
         Collections.sort(equipes, (new Comparator<Equipe>() {
             public int compare(Equipe i1, Equipe i2) {
@@ -49,23 +66,6 @@ public class Tournoi {
                 return i2.nombrePartiesGagnees - i1.nombrePartiesGagnees;
             }
         }));
-    }
-    
-    public void rangerEquipesOrdreId(){
-        Collections.sort(equipes, (new Comparator<Equipe>() {
-            public int compare(Equipe i1, Equipe i2) {
-                return i1.id - i2.id;
-            }
-        }));
-    }
-    
-    public void afficherClassement(){
-        for (var i = 0; i < equipes.size(); i++){
-            System.out.println("Equipe " + equipes.get(i).getId() + " nombre parties gagnées : " + equipes.get(i).nombrePartiesGagnees + " score total : " + equipes.get(i).scoreFinal);
-            for(var j = 0; j < equipes.get(i).joueurs.size(); j++){
-                System.out.println("\t" + equipes.get(i).joueurs.get(j).getNom());
-            }
-        }
     }
     
     public Equipe findEquipeAdverse(Equipe equipe, int numManche){

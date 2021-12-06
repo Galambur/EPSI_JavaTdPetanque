@@ -1,6 +1,5 @@
 package concourspetanque;
 
-import java.util.Collections;
 import java.util.List;
 
 public class Equipe {
@@ -19,14 +18,6 @@ public class Equipe {
         return id;
     }
     
-    public int getscoreFinal(){
-        return scoreFinal;
-    }
-    
-    public int getnombrePartiesGagnees(){
-        return nombrePartiesGagnees;
-    }
-    
     public void ajouterJoueur(Joueur j){
         this.joueurs.add(j);
         j.setNumeroEquipe(this.id);
@@ -35,7 +26,7 @@ public class Equipe {
     public String afficherJoueurs(){
         var str = "Equipe num " + this.id + " :";
         for(var i = 0; i < this.joueurs.size(); i++){
-            str = str + " nombre parties gagnees : " + nombrePartiesGagnees + " score : " + Integer.toString(this.scoreFinal) + " | " + this.joueurs.get(i).afficheToi();
+            str = str + this.joueurs.get(i).afficheToi() + ", ";
         }
         return str;
     }

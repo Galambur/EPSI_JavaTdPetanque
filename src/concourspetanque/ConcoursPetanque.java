@@ -11,12 +11,13 @@ public class ConcoursPetanque {
     public static void main(String[] args) {
         
         var tournoi = creationEquipes();
+        tournoi.afficherEquipes();
+        System.out.println("");
         
         // deroulement du tournoi
         deroulementTournoi(tournoi);
         
-        tournoi.faireClassement();
-        System.out.println("");
+        System.out.println("\nClassement final : ");
         tournoi.afficherClassement();
     }
     
@@ -120,7 +121,6 @@ public class ConcoursPetanque {
         // premiere possibilite
         // 24 20 16 12
         if(nombreJoueurs / 2 == 12.0 || nombreJoueurs / 2 == 10.0 || nombreJoueurs / 2 == 8.0 || nombreJoueurs / 2 == 6.0) {
-            System.out.println("Ce tournoi n'aura que des doublettes");
             nombreEquipe = nombreJoueurs / 2;
             // on mélange la liste des joueurs
             Collections.shuffle(listeJoueursRestants);
@@ -144,7 +144,6 @@ public class ConcoursPetanque {
             // si c'est impaire, on fait une equipe de 3 puis on fait
             if(nombreJoueurs % 2 != 0) {
                 nombreEquipes++;
-                System.out.println("Si c'est impaire, on fait une equipe de 3 puis on fait");
                 var joueur1 = listeJoueursRestants.get(listeJoueursRestants.size() - 1);
                 listeJoueursRestants.remove(joueur1);
                 var joueur2 = listeJoueursRestants.get(listeJoueursRestants.size() - 1);
@@ -179,7 +178,6 @@ public class ConcoursPetanque {
 
             // là on verifie si on a le bon nombre d'equipe, si non, on prend les trois dernieres equipes pour en faire 2
             if(nombreEquipes != 12 && nombreEquipes != 10 && nombreEquipes != 8 && nombreEquipes != 6){
-                System.out.println("on enleve trois equipes pour en recreer deux");
                 // on enleve trois equipes pour en recreer deux
                 var doublette1 = tournoi.equipes.get(tournoi.equipes.size() - 1);
                 var doublette2 = tournoi.equipes.get(tournoi.equipes.size() - 2);
@@ -213,7 +211,6 @@ public class ConcoursPetanque {
                 tournoi.addEquipe(equipe1);
                 tournoi.addEquipe(equipe2);
             } else if (nombreJoueursRestants > 0) {
-                System.out.println("else if");
                 var nbEquipe = 12;
                 var count = 1;
                 for(var i = nombreJoueursRestants; i > 0; i--){
