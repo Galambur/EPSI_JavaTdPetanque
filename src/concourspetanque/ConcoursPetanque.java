@@ -35,30 +35,31 @@ public class ConcoursPetanque {
                 var match = new Match(numMatch, numManche, equipe1, equipe2, 0, 0);
                 tournoi.matches.add(match);
                 
+                // a partir de la deuxieme manche, on verifie que les equipes n'ont pas déjà joué ensemble
+                // et si elles ne sont pas déjà en train de jouer dans la manche
                 if(numManche != 1){
-                    equipe2 = tournoi.findEquipeAdverse(tournoi.equipes.get(i), numManche);
+                    equipe2 = tournoi.findEquipeAdverse(equipe1, numManche);
                     match.replaceEquipe2(equipe2);
                 }
                 
-                System.out.println("equipe " + tournoi.equipes.get(i).id + " contre equipe " + equipe2.getId());
+                System.out.println("equipe " + equipe1.id + " contre equipe " + equipe2.getId());
                 
                 
-                // quelle equipe commence la partie
+                // quelle equipe commence la partie ?
                 Random rand = new Random();
                 var equipe1Commence = rand.nextBoolean();
                 
                 do {
-                    
+                    // une equipe peut gagner maximum 6 points et minimum 0
+                    int max = 6;
+                    int min = 0;
+                    int range = max - min + 1;
                     if(equipe1Commence){
                         // on incremente le score de l'equipe 1
-                        // une equipe peut gagner maximum 6 points et minimum 0
-                        int max = 6;
-                        int min = 0;
-                        int range = max - min + 1;
-
                         int score1 = (int)(Math.random() * range) + min;
                         match.scoreEquipe1 = match.scoreEquipe1 + score1;
                         
+                        // on vérifie que ce n'est pas supérieur à 11
                         if(match.scoreEquipe1 > 11)
                             match.scoreEquipe1 = 11;
                         
@@ -70,15 +71,10 @@ public class ConcoursPetanque {
                                 match.scoreEquipe2 = 11;
                         }
                                                 
-                        // on retire le booleen
+                        // on retire le booleen pour la prochaine main
                         equipe1Commence = rand.nextBoolean();
                     } else {
-                        // on incremente le score de l'equipe 1
-                        // une equipe peut gagner maximum 6 points et minimum 0
-                        int max = 6;
-                        int min = 0;
-                        int range = max - min + 1;
-
+                        // on incremente le score de l'equipe 2
                         int score2 = (int)(Math.random() * range) + min;
                         match.scoreEquipe2 = match.scoreEquipe2 + score2;
                         
@@ -93,7 +89,7 @@ public class ConcoursPetanque {
                                 match.scoreEquipe1 = 11;
                         }
                         
-                        // on retire le booleen
+                        // on retire le booleen pour la prochaine main
                         equipe1Commence = rand.nextBoolean();
                     } 
                 } while(match.scoreEquipe1 < 11 && match.scoreEquipe2 < 11);
