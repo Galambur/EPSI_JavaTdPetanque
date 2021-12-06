@@ -9,11 +9,41 @@ public class Tournoi {
     public List<Equipe> equipes;
     public List<Match> matches;    
     public List<Joueur> joueurs;
+    public String[][] matchesAFaire;
+    
+    public String[][] matchesPour6Equipes = {
+        {"1-2", "3-4", "5-6"},
+        {"1-3","2-6","4-5"},
+        {"1-4","5-2","3-6"},
+        {"1-5","6-4","2-3"},
+    };
+
+    public String[][] matchesPour8Equipes = {
+            {"1-2", "3-4", "5-6","7-8"},
+            {"1-3","2-4","5-7","6-8"},
+            {"1-4","2-3","5-8","6-7"},
+            {"1-5","2-8","3-7","4-6"},
+    };
+
+    public String[][] matchesPour10Equipes = {
+            {"1-2", "3-4", "5-6","7-8","9-10"},
+            {"2-3","4-5","6-7","8-9","10-1"},
+            {"1-3","2-4","9-6","8-10","5-7"},
+            {"6-8","7-9","10-3","5-2","4-1"},
+    };
+
+    public String[][] matchesPour12Equipes = {
+            {"1-2", "3-4", "5-6","7-8","9-10","11-12"},
+            {"1-12","2-11","3-10","4-9","5-8","6-7"},
+            {"1-3","2-4","5-7","6-8","12-9","10-11"},
+            {"12-6","3-8","11-7","1-9","4-10","5-2"},
+    };
     
     public Tournoi(List<Joueur> joueurs){
         this.equipes = new ArrayList<Equipe>();
         this.matches = new ArrayList<Match>();
         this.joueurs = joueurs;
+        this.matchesAFaire = new String[0][0];
     }
     
     public void addMatch(Match match) {
@@ -28,6 +58,27 @@ public class Tournoi {
         this.equipes.remove(this.equipes.size() - 1);
         this.equipes.remove(this.equipes.size() - 1);
         this.equipes.remove(this.equipes.size() - 1);
+    }
+    
+    public void setMatchesAFaire(){
+        var nbEquipes = equipes.size();
+        switch (nbEquipes) {
+            case 6:
+              this.matchesAFaire = matchesPour6Equipes;
+              break;
+              
+            case 8:
+              this.matchesAFaire = matchesPour8Equipes;
+              break;
+              
+            case 10:
+              this.matchesAFaire = matchesPour10Equipes;
+              break;
+              
+            case 12:
+              this.matchesAFaire = matchesPour12Equipes;
+              break;
+        }
     }
     
     public void afficherEquipes(){
@@ -66,39 +117,5 @@ public class Tournoi {
                 return i2.nombrePartiesGagnees - i1.nombrePartiesGagnees;
             }
         }));
-    }
-    
-    public Equipe findEquipeAdverse(Equipe equipe, int numManche){
-        Equipe equipeAdverse = null;
-        for(var j = 0; j < equipes.size(); j++){
-            if(equipes.get(j).getId() != equipe.getId() 
-                    && hasAlreadyPlayed(equipes.get(j), equipe) == false 
-                    && isAlreadyPlaying(equipes.get(j), numManche) == false){
-                equipeAdverse = equipes.get(j);
-            }
-        }
-        return equipeAdverse;
-    }
-    
-    private boolean isAlreadyPlaying(Equipe equipeCherchee, int numManche){
-        for(var i = 0; i < matches.size(); i++){
-            if(matches.get(i).numManche == numManche && (equipeCherchee.getId() == matches.get(i).equipe1.getId() || equipeCherchee.getId() == matches.get(i).equipe2.getId())
-                    || (equipeCherchee.getId() % 2 != 0)) {
-                return true;
-            }
-        }
-        return false;
-    }
-    
-    private boolean hasAlreadyPlayed(Equipe e1, Equipe e2){
-        for(var i = 0; i < matches.size(); i++){
-            if(matches.get(i).equipe1.getId() == e1.getId() && matches.get(i).equipe2.getId() == e2.getId()){
-                return true;
-            }
-            if(matches.get(i).equipe1.getId() == e2.getId() && matches.get(i).equipe2.getId() == e1.getId()){
-                return true;
-            }
-        }
-        return false;
     }
 }

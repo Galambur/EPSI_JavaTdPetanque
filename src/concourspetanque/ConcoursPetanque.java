@@ -23,25 +23,18 @@ public class ConcoursPetanque {
     
     
     public static void deroulementTournoi(Tournoi tournoi){
-        for (var numManche = 1; numManche <= 4; numManche++){
+        
+        for (String[] matches : tournoi.matchesAFaire) {
             var numMatch = 0;
-            System.out.println("\nManche numero " + numManche);
-            
-            // une manche pour toutes les equipes
-            for(var i = 0; i < tournoi.equipes.size(); i = i + 2){
+            for (int j = 0; j < tournoi.matchesAFaire[0].length ; j++) {
                 numMatch++;
-                var equipe1 = tournoi.equipes.get(i);
-                var equipe2 = tournoi.equipes.get(i+1);
                 
-                var match = new Match(numMatch, numManche, equipe1, equipe2, 0, 0);
+                String[] equipesTirage = matches[j].split("-");
+                Equipe equipe1 = tournoi.equipes.get(Integer.parseInt(equipesTirage[0]) - 1);
+                Equipe equipe2 = tournoi.equipes.get(Integer.parseInt(equipesTirage[1]) - 1);
+                
+                var match = new Match(numMatch, equipe1, equipe2, 0, 0);
                 tournoi.matches.add(match);
-                
-                // a partir de la deuxieme manche, on verifie que les equipes n'ont pas déjà joué ensemble
-                // et si elles ne sont pas déjà en train de jouer dans la manche
-                if(numManche != 1){
-                    equipe2 = tournoi.findEquipeAdverse(equipe1, numManche);
-                    match.replaceEquipe2(equipe2);
-                }
                 
                 System.out.println("equipe " + equipe1.id + " contre equipe " + equipe2.getId());
                 
@@ -221,6 +214,7 @@ public class ConcoursPetanque {
             }
         }
         tournoi.rangerEquipesOrdreId();
+        tournoi.setMatchesAFaire();
         return tournoi;
     }
 }
