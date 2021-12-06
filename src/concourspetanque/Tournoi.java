@@ -37,7 +37,7 @@ public class Tournoi {
         }
     }
     
-    public void afficherClassement(){
+    public void faireClassement(){
         // organiser la liste
         Collections.sort(equipes, (new Comparator<Equipe>() {
             public int compare(Equipe i1, Equipe i2) {
@@ -49,6 +49,23 @@ public class Tournoi {
                 return i2.nombrePartiesGagnees - i1.nombrePartiesGagnees;
             }
         }));
+    }
+    
+    public void rangerEquipesOrdreId(){
+        Collections.sort(equipes, (new Comparator<Equipe>() {
+            public int compare(Equipe i1, Equipe i2) {
+                return i1.id - i2.id;
+            }
+        }));
+    }
+    
+    public void afficherClassement(){
+        for (var i = 0; i < equipes.size(); i++){
+            System.out.println("Equipe " + equipes.get(i).getId() + " nombre parties gagnées : " + equipes.get(i).nombrePartiesGagnees + " score total : " + equipes.get(i).scoreFinal);
+            for(var j = 0; j < equipes.get(i).joueurs.size(); j++){
+                System.out.println("\t" + equipes.get(i).joueurs.get(j).getNom());
+            }
+        }
     }
     
     public Equipe findEquipeAdverse(Equipe equipe, int numManche){
@@ -63,16 +80,17 @@ public class Tournoi {
         return equipeAdverse;
     }
     
-    public boolean isAlreadyPlaying(Equipe equipeCherchee, int numManche){
+    private boolean isAlreadyPlaying(Equipe equipeCherchee, int numManche){
         for(var i = 0; i < matches.size(); i++){
-            if(matches.get(i).numManche == numManche && (equipeCherchee.getId() == matches.get(i).equipe1.getId() || equipeCherchee.getId() == matches.get(i).equipe2.getId())) {
+            if(matches.get(i).numManche == numManche && (equipeCherchee.getId() == matches.get(i).equipe1.getId() || equipeCherchee.getId() == matches.get(i).equipe2.getId())
+                    || (equipeCherchee.getId() % 2 != 0)) {
                 return true;
             }
         }
         return false;
     }
     
-    public boolean hasAlreadyPlayed(Equipe e1, Equipe e2){
+    private boolean hasAlreadyPlayed(Equipe e1, Equipe e2){
         for(var i = 0; i < matches.size(); i++){
             if(matches.get(i).equipe1.getId() == e1.getId() && matches.get(i).equipe2.getId() == e2.getId()){
                 return true;

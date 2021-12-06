@@ -11,26 +11,28 @@ public class ConcoursPetanque {
     public static void main(String[] args) {
         
         var tournoi = creationEquipes();
-        //tournoi.afficherEquipes();
         
         // deroulement du tournoi
         deroulementTournoi(tournoi);
         
+        tournoi.faireClassement();
+        System.out.println("");
         tournoi.afficherClassement();
-        tournoi.afficherEquipes();
     }
     
     
     public static void deroulementTournoi(Tournoi tournoi){
         for (var numManche = 1; numManche <= 4; numManche++){
             var numMatch = 0;
-            System.out.println("Manche numero " + numManche);
+            System.out.println("\nManche numero " + numManche);
             
             // une manche pour toutes les equipes
             for(var i = 0; i < tournoi.equipes.size(); i = i + 2){
                 numMatch++;
+                var equipe1 = tournoi.equipes.get(i);
                 var equipe2 = tournoi.equipes.get(i+1);
-                var match = new Match(numMatch, numManche, tournoi.equipes.get(i), equipe2, 0, 0);
+                
+                var match = new Match(numMatch, numManche, equipe1, equipe2, 0, 0);
                 tournoi.matches.add(match);
                 
                 if(numManche != 1){
@@ -225,6 +227,7 @@ public class ConcoursPetanque {
                 }
             }
         }
+        tournoi.rangerEquipesOrdreId();
         return tournoi;
     }
 }
